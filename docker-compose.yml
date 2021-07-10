@@ -6,3 +6,6 @@ services:
     build: ./vue-todo-list # Dockerfileの場所
     ports:
       - 4000:3000
+    volumes:
+      - ./vue-todo-list:/app
+    tty: true
