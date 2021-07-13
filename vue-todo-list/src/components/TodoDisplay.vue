@@ -11,12 +11,12 @@
             <td>{{ index }}</td>
             <td>{{ todo.comment }}</td>
             <td v-if="todo.state === 'wip'">
-              <button @click="changeState(index)">作業中</button>
+              <button @click="changeStateIndex(index)">作業中</button>
             </td>
             <td v-else>
-              <button @click="changeState(index)">完了</button>
+              <button @click="changeStateIndex(index)">完了</button>
             </td>
-            <td><button @click="deleteTodo(index)">削除</button></td>
+            <td><button @click="deleteTodoIndex(index)">削除</button></td>
           </template>
         </tr>
     </tbody>
@@ -27,15 +27,11 @@
 export default {
   props: ['todos', 'showState'],
   methods: {
-    deleteTodo(index) {
-      this.todos.splice(index, 1);
+    deleteTodoIndex(index) {
+      this.$emit('deleteTodoIndex', index)
     },
-    changeState(index) {
-        if (this.todos[index].state === 'wip') {
-            this.todos[index].state = 'done'
-        } else {
-            this.todos[index].state = 'wip'
-        }
+    changeStateIndex(index) {
+      this.$emit('changeStateIndex', index)
     }
   }
 }

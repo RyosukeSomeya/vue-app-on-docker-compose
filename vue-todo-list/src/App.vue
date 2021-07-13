@@ -5,7 +5,11 @@
       <h1>TodoList</h1>
       <TodoFilter @selectState="changeShowState"/>
       <div class="todo-list">
-        <TodoDisplay :todos="todos" :showState="showState" />
+        <TodoDisplay
+          v-bind="{todos, showState}"
+          @deleteTodoIndex="deleteTodo"
+          @changeStateIndex="changeState"
+        />
         <TodoInput @sendNewTodo="addTodo" />
       </div>
     </div>
@@ -22,7 +26,6 @@ export default {
     return {
       showState: 'all',
       todos: [],
-      // newTodo: '',
     }
   },
   name: 'App',
@@ -40,6 +43,16 @@ export default {
     },
     changeShowState(selectState) {
       this.showState = selectState;
+    },
+    deleteTodo(index) {
+      this.todos.splice(index, 1);
+    },
+    changeState(index) {
+        if (this.todos[index].state === 'wip') {
+            this.todos[index].state = 'done'
+        } else {
+            this.todos[index].state = 'wip'
+        }
     }
   }
 }
