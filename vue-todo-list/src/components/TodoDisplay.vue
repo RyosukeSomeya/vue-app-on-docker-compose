@@ -11,12 +11,12 @@
             <td>{{ index }}</td>
             <td>{{ todo.comment }}</td>
             <td v-if="todo.state === 'wip'">
-              <button @click="changeStateIndex(index)">作業中</button>
+              <button class="wip-btn" @click="changeStateIndex(index)">作業中</button>
             </td>
             <td v-else>
-              <button @click="changeStateIndex(index)">完了</button>
+              <button class="done-btn" @click="changeStateIndex(index)">完了</button>
             </td>
-            <td><button @click="deleteTodoIndex(index)">削除</button></td>
+            <td><button class="delete-btn" @click="deleteTodoIndex(index)">削除</button></td>
           </template>
         </tr>
     </tbody>
