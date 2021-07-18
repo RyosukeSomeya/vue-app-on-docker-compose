@@ -1,4 +1,4 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import TodoDisplay from '@/components/TodoDisplay';
 
 describe('Testing TodoDisplay component', () => {
