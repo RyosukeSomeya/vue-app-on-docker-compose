@@ -16,16 +16,16 @@ describe('Testing TodoInput component', () => {
 
     it('コンポーネント要素の表示確認', () => {
         wrapper = mount(TodoInput);
-        expect(wrapper.text()).toContain('新規タスクの追加');
+        expect(wrapper.find('h1').text()).toBe('新規タスクの追加');
         expect(wrapper.find('input[type="text"]').exists()).toBe(true);
-        expect(wrapper.find('button').exists()).toBe(true);
+        expect(wrapper.find('button').text()).toBe('追加');
     });
 
     it('input要素の入力確認', async () => {
         wrapper = mount(TodoInput);
         const textInput = wrapper.find('input[type="text"]');
         await textInput.setValue('追加タスク1');
-        console.log(wrapper.find('input[type="text"]').element)
+        // v-modelの値が変更されていることを確認
         expect(wrapper.find('input[type="text"]').element.value).toBe('追加タスク1');
     });
 
@@ -34,5 +34,5 @@ describe('Testing TodoInput component', () => {
         // Todo追加ボタンの発火テスト
         wrapper.find('button').trigger('click');
         expect(wrapper.emitted('sendNewTodo')).toBeTruthy();
-    })
+    });
 });

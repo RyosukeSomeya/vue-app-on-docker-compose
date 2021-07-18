@@ -44,10 +44,11 @@ describe('Testing TodoDisplay component', () => {
         expect(wrapper.findAll('.wip-btn').length).toEqual(2);
         // 完了が1アイテム存在する。
         expect(wrapper.findAll('.done-btn').length).toEqual(1);
-        // 表示されているテキスト確認
-        expect(wrapper.text()).toContain('テストtodo1');
-        expect(wrapper.text()).toContain('テストtodo2');
-        expect(wrapper.text()).toContain('テストtodo3');
+        // 各行に表示されているテキスト確認
+        const rows = wrapper.findAll('tr');
+        expect(rows.at(1).text()).toContain('テストtodo1');
+        expect(rows.at(2).text()).toContain('テストtodo2');
+        expect(rows.at(3).text()).toContain('テストtodo3');
     })
 
     it('クリックイベントの発火確認', () => {
