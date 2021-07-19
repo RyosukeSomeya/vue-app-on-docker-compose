@@ -8,8 +8,8 @@
     <tbody>
         <tr v-for="(todo, index) in todos" :key="index">
           <template v-if="showState === 'all' || showState === todo.state">
-            <td>{{ index }}</td>
-            <td>{{ todo.comment }}</td>
+            <td class="todo-index">{{ index }}</td>
+            <td class="todo-comment">{{ todo.comment }}</td>
             <td v-if="todo.state === 'wip'">
               <button class="wip-btn" @click="changeStateIndex(index)">作業中</button>
             </td>
