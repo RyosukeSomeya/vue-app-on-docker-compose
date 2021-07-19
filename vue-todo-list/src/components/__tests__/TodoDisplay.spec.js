@@ -16,15 +16,15 @@ describe('Testing TodoDisplay component', () => {
     describe('Testing TodoDisplay component', () => {
         beforeEach(() => {
             wrapper = shallowMount(TodoDisplay)
-        })
+        });
 
-        it('コンポーネントが表示されているか確認', () => {
+        it('コンポーネントが表示されている', () => {
             expect(wrapper.isVueInstance).toBeTruthy();
             expect(wrapper.findComponent(TodoDisplay).exists()).toBe(true);
         });
 
         // 初期表示の確認
-        it('tableのtheadが表示されているか確認', () => {
+        it('tableのtheadが表示されている', () => {
             expect(wrapper.find('thead').exists()).toBeTruthy();
             // thは4つ存在する
             expect(wrapper.findAll('th').length).toEqual(4);
@@ -36,7 +36,7 @@ describe('Testing TodoDisplay component', () => {
 
     describe('Todoが存在する場合の表示状態の確認', () => {
         // todoが存在する場合
-        it('todoが存在する場合の表示確認', () => {
+        it('各todoのコメントと状態が正しく表示されている', () => {
             wrapper = shallowMount(TodoDisplay, {
                 propsData: {
                     showState: 'all',
@@ -57,7 +57,7 @@ describe('Testing TodoDisplay component', () => {
             expect(rows.at(3).text()).toContain('テストtodo3');
         })
 
-        it('ラジオボタンの「作業中」が選択されている場合の表示確認', () => {
+        it('ラジオボタンの「作業中」が選択されると作業中のtodoのみ表示される', () => {
             wrapper = shallowMount(TodoDisplay, {
                 propsData: {
                     showState: 'wip',
@@ -70,7 +70,7 @@ describe('Testing TodoDisplay component', () => {
             });
         });
 
-        it('ラジオボタンの「完了」が選択されている場合の表示確認', () => {
+        it('ラジオボタンの「完了」が選択されると完了のtodoのみ表示される', () => {
             wrapper = shallowMount(TodoDisplay, {
                 propsData: {
                     showState: 'done',
@@ -92,14 +92,14 @@ describe('Testing TodoDisplay component', () => {
                     todos: todoSample
                 }
             });
-        })
+        });
 
-        it('状態変更ボタンの発火確認', () => {
+        it('状態ボタンをクリックすると状態変更イベントが発火する', () => {
             wrapper.find('.wip-btn').trigger('click');
             expect(wrapper.emitted('changeStateIndex')).toBeTruthy();
         });
 
-        it('削除ボタンの発火確認', () => {
+        it('削除ボタンをクリックすると削除イベントが発火する', () => {
             wrapper.find('.delete-btn').trigger('click');
             expect(wrapper.emitted('deleteTodoIndex')).toBeTruthy();
         });
