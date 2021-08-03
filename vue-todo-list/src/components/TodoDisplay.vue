@@ -16,7 +16,9 @@
             <td v-else>
               <button class="done-btn" @click="changeStateIndex(index)">完了</button>
             </td>
-            <td><button class="delete-btn" @click="deleteTodoIndex(index)">削除</button></td>
+            <td>
+              <button class="delete-btn" @click="deleteTodoIndex(index)">削除</button>
+            </td>
           </template>
         </tr>
     </tbody>

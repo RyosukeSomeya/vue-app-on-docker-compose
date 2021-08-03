@@ -9,18 +9,16 @@ describe('Testing TodoFilter component', () => {
     });
 
     afterEach(() => {
-    wrapper.destroy();
+        wrapper.destroy();
     });
 
     describe('コンポーネント全体の確認', () => {
         it('コンポーネントが表示されている', () => {
-            // wrapper = shallowMount(TodoFilter);
             expect(wrapper.isVueInstance).toBeTruthy();
             expect(wrapper.findComponent(TodoFilter).exists()).toBe(true);
         });
 
         it('コンポーネントの各要素の表示されている', () => {
-            // wrapper = shallowMount(TodoFilter);
             const labels = wrapper.findAll('label');
             expect(labels.at(0).text()).toBe('すべて');
             expect(labels.at(1).text()).toBe('作業中');
@@ -36,11 +34,13 @@ describe('Testing TodoFilter component', () => {
         })
 
         it('「すべて」が選択されている', async () => {
-            await radioInput.at(0).setChecked();
+            // 初期値でセットされてしまっているので、changeで発火させる
+            await radioInput.at(0).trigger('change');
             expect(radioInput.at(0).element.checked).toBe(true);
             expect(radioInput.at(1).element.checked).toBe(false);
             expect(radioInput.at(2).element.checked).toBe(false);
             expect(radioInput.at(0).element.value).toBe('all');
+            expect(wrapper.emitted('selectState')[0]).toEqual(['all']);
         });
 
         it('「作業中」が選択されている', async () => {
@@ -49,7 +49,7 @@ describe('Testing TodoFilter component', () => {
             expect(radioInput.at(1).element.checked).toBe(true);
             expect(radioInput.at(2).element.checked).toBe(false);
             expect(radioInput.at(1).element.value).toBe('wip');
-
+            expect(wrapper.emitted('selectState')[0]).toEqual(['wip']);
         });
 
         it('「完了」が選択されている', async () => {
@@ -58,15 +58,7 @@ describe('Testing TodoFilter component', () => {
             expect(radioInput.at(1).element.checked).toBe(false);
             expect(radioInput.at(2).element.checked).toBe(true);
             expect(radioInput.at(2).element.value).toBe('done');
-
-        });
-
-        it('各状態選択時にイベントが発火する', async () => {
-            for (let i = 0; i < radioInput.length; i++) {
-                await radioInput.at(i).setChecked();
-                await radioInput.at(i).trigger('change');
-                expect(wrapper.emitted('selectState')).toBeTruthy();
-            }
+            expect(wrapper.emitted('selectState')[0]).toEqual(['done']);
         });
     });
 });
